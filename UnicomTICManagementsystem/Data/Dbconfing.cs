@@ -9,7 +9,7 @@ namespace UnicomTICManagementsystem.Data
 {
     internal static class Dbconfing
     {
-        private static string connectionstring = "Data Source=UnicomTIC.db;Version=3;";
+        private static string connectionstring = "Data Source=UnicomTICManagementsystem.db;Version=3;";
 
         public static SQLiteConnection GetConnection()
         {

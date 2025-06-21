@@ -15,7 +15,7 @@ namespace UnicomTICManagementsystem.Controllers
         public List<Students_mo> GetStudents()
         {
             List<Students_mo> students_Mos = new List<Students_mo>();
-            string veiwstudentsQuery = @"SELECT * FROM Students_1234567";
+            string veiwstudentsQuery = @"SELECT * FROM Students";
             using (var conn = Dbconfing.GetConnection())
             {
 
@@ -52,7 +52,7 @@ namespace UnicomTICManagementsystem.Controllers
             using (var Dbconn = Dbconfing.GetConnection())
             {
                 var cmd = Dbconn.CreateCommand();
-                cmd.CommandText = @"SELECT NICNumber FROM Students_1234567 WHERE NICNumber = @nicnumber";
+                cmd.CommandText = @"SELECT NICNumber FROM Students WHERE NICNumber = @nicnumber";
                 cmd.Parameters.AddWithValue("@nicnumber", students_mo.NIC_Number);
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -62,7 +62,7 @@ namespace UnicomTICManagementsystem.Controllers
                     {
                         reader.Close();
 
-                        string AddsstudentsQuery = "INSERT INTO Students_1234567 (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID) VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid)";
+                        string AddsstudentsQuery = "INSERT INTO Students (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID) VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid)";
                         SQLiteCommand SQLite = new SQLiteCommand(AddsstudentsQuery, Dbconn);
 
                         SQLite.Parameters.AddWithValue("@name", students_mo.Name);
@@ -92,7 +92,7 @@ namespace UnicomTICManagementsystem.Controllers
             using (var conn = Dbconfing.GetConnection())
             {
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM Students_1234567 WHERE UserId = @userid";
+                cmd.CommandText = "DELETE FROM Students WHERE UserId = @userid";
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.ExecuteNonQuery();
             }
@@ -108,7 +108,7 @@ namespace UnicomTICManagementsystem.Controllers
                     using (var cmd = Dbconn.CreateCommand())
                     {
                         cmd.CommandText = @"
-                UPDATE Students_1234567 SET
+                UPDATE Students SET
                     Name = @name,
                     Age = @age,
                     Gender = @gender,

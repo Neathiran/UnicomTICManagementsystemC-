@@ -20,10 +20,17 @@ namespace UnicomTICManagementsystem.Data
         );
 
         CREATE TABLE IF NOT EXISTS Users (
-            UserID TEXT NOT NULL,
-            Password TEXT NOT NULL,
+             UserID TEXT NOT NULL,
+             Password TEXT NOT NULL,
             Role TEXT NOT NULL
         );
+
+        INSERT INTO Users (UserID, Password, Role)
+            SELECT 'Admin', '12345', 'Admin'
+            WHERE NOT EXISTS (
+             SELECT 1 FROM Users WHERE UserID = 'Admin'
+        );
+
 
         CREATE TABLE IF NOT EXISTS Rooms (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,7 +46,7 @@ namespace UnicomTICManagementsystem.Data
            FOREIGN KEY (CoursesID) REFERENCES Courses(ID)
         );
 
-       CREATE TABLE IF NOT EXISTS Exams_01 (
+       CREATE TABLE IF NOT EXISTS Exams (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             Date TEXT NOT NULL,
              Time TEXT NOT NULL,
@@ -54,30 +61,35 @@ namespace UnicomTICManagementsystem.Data
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             Mark INTEGER NOT NULL,
             UserID INTEGER NOT NULL,
-             ExamsID INTEGER NOT NULL,
+            ExamsID INTEGER NOT NULL,
+            ExamName TEXT NOT NULL,
             FOREIGN KEY (UserID) REFERENCES Users(ID),
             FOREIGN KEY (ExamsID) REFERENCES Exams(ID)
         );
 
         CREATE TABLE IF NOT EXISTS TimeTable (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Date TEXT NOT NULL,
             TimeSlot TEXT NOT NULL,
             RoomsID INTEGER NOT NULL,
+            RoomName TEXT NOT NULL,
             SubjectsID INTEGER NOT NULL,
+            SubjectName TEXT NOT NULL,
             FOREIGN KEY (RoomsID) REFERENCES Rooms(ID),
             FOREIGN KEY (SubjectsID) REFERENCES Subjects(ID)
         );
 
-        CREATE TABLE IF NOT EXISTS Lecturers_1234 (
+        CREATE TABLE IF NOT EXISTS Lecturers (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             LecturerName TEXT NOT NULL,
             CoursesID INTEGER NOT NULL,
+            CourseName TEXT NOT NULL,
             UserID TEXT NOT NULL,
-             FOREIGN KEY (UserID) REFERENCES Users_123(UserID),
+            FOREIGN KEY (UserID) REFERENCES Users(UserID),
             FOREIGN KEY (CoursesID) REFERENCES Courses(ID)
 
         );
-        CREATE TABLE IF NOT EXISTS Students_1234567 (
+        CREATE TABLE IF NOT EXISTS Students (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
              Name TEXT NOT NULL,
              Age INTEGER NOT NULL,
@@ -87,30 +99,32 @@ namespace UnicomTICManagementsystem.Data
             UserID TEXT NOT NULL,
             NICNumber TEXT NOT NULL,
             CoursesID INTEGER NOT NULL,
-            FOREIGN KEY (UserID) REFERENCES Users_123(UserID),
+            FOREIGN KEY (UserID) REFERENCES Users(UserID),
              FOREIGN KEY (CoursesID) REFERENCES Courses(ID)
         
         );
-        CREATE TABLE IF NOT EXISTS Student_and_Teacher_1234 (
+        CREATE TABLE IF NOT EXISTS Student_and_Teacher (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             StudentsID INTEGER NOT NULL,
+            StudentName TEXT NOT NULL,
             LecturersID INTEGER NOT NULL,
+            LecturersName TEXT NOT NULL,
             FOREIGN KEY (StudentsID) REFERENCES Students(ID),
             FOREIGN KEY (LecturersID) REFERENCES Lecturers(ID)
         );
-        CREATE TABLE IF NOT EXISTS Staffs_1234 (
+        CREATE TABLE IF NOT EXISTS Staffs (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             StaffName TEXT NOT NULL,
             PhoneNumber TEXT NOT NULL,
-             UserID TEXT NOT NULL,
-            FOREIGN KEY (UserID) REFERENCES Users_123(UserID)
+            UserID TEXT NOT NULL,
+            FOREIGN KEY (UserID) REFERENCES Users(UserID)
         );
     
-        CREATE TABLE IF NOT EXISTS Admin_1234 (
+        CREATE TABLE IF NOT EXISTS Admin (
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             AdminID TEXT NOT NULL,
              UserID TEXT NOT NULL,
-            FOREIGN KEY (UserID) REFERENCES Users_123(UserID)
+            FOREIGN KEY (UserID) REFERENCES Users(UserID)
              
         );
         

@@ -15,7 +15,7 @@ namespace UnicomTICManagementsystem.Controllers
     {
         public List<Date_Time_mo> GetTime(string Date)
         { 
-            string viewroomtypeByIdQuery = @"SELECT Time FROM Exams_01 WHERE Date = @date ";
+            string viewroomtypeByIdQuery = @"SELECT Time FROM Exams WHERE Date = @date ";
             using (var conn = Dbconfing.GetConnection())
             {
 
@@ -27,7 +27,6 @@ namespace UnicomTICManagementsystem.Controllers
                 {
                     Date_Time_mo date_Time_Mo = new Date_Time_mo();
                     date_Time_Mo.Time = readers.GetString(0);
-                    date_Time_Mo.Date = readers.GetString(1);
                     date_Time_mo_.Add(date_Time_Mo);
 
                 }
@@ -39,7 +38,7 @@ namespace UnicomTICManagementsystem.Controllers
         public List<Exams_mo> GetExams()
         {
             List<Exams_mo> Exams_mo_ = new List<Exams_mo>();
-            string veiwroomsQuery = @"SELECT * FROM Exams_01";
+            string veiwroomsQuery = @"SELECT * FROM Exams";
             using (var conn = Dbconfing.GetConnection())
             {
 
@@ -58,7 +57,6 @@ namespace UnicomTICManagementsystem.Controllers
                         exams_mo.ExamName = readers.GetString(3);
                         exams_mo.SubjectsID = readers.GetInt32(4);
                         exams_mo.SubjectName = readers.GetString(5);
-                        //exams_mo.RoomName = readers.GetString(6);
                         Exams_mo_.Add(exams_mo);
                         i++;
                     }
@@ -77,8 +75,10 @@ namespace UnicomTICManagementsystem.Controllers
                 using (var cmd = conn.CreateCommand())
                 {
                     string query = @"
-    INSERT INTO Exams_01 (Date, Time, ExamName, SubjectsID, SubjectName) 
-    VALUES (@date, @time, @examName, @subjectsID, @subjectName)";
+INSERT INTO Exams (Date, Time, ExamName, SubjectsID, SubjectName) 
+VALUES (@date, @time, @examName, @subjectsID, @subjectName)";
+
+                    cmd.CommandText = query;
 
                     cmd.Parameters.AddWithValue("@date", exams_mo.Date);
                     cmd.Parameters.AddWithValue("@time", exams_mo.Time);
@@ -86,9 +86,51 @@ namespace UnicomTICManagementsystem.Controllers
                     cmd.Parameters.AddWithValue("@subjectsID", exams_mo.SubjectsID);
                     cmd.Parameters.AddWithValue("@subjectName", exams_mo.SubjectName);
 
+                    cmd.ExecuteNonQuery(); // <-- This runs the SQL insert
                 }
             }
         }
+
+        public void DeleteExam(String Exam_Name)
+        {
+
+            using (var conn = Dbconfing.GetConnection())
+            {
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Exams WHERE ExamName = @examname";
+                cmd.Parameters.AddWithValue("@examname", Exam_Name);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateExams(Exams_mo exams_mo)
+        {
+            using (var Dbconn = Dbconfing.GetConnection())
+            {
+
+                using (var cmd = Dbconn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                UPDATE Exams SET
+                    Date = @date,
+                    Time = @time,
+                    ExamName = @examname,
+                    SubjectsID = @subjectsID,
+                    SubjectName = @subjectname
+                WHERE ID = @id";
+
+                    cmd.Parameters.AddWithValue("@date", exams_mo.Date);
+                    cmd.Parameters.AddWithValue("@time", exams_mo.Time);
+                    cmd.Parameters.AddWithValue("@examname", exams_mo.ExamName);
+                    cmd.Parameters.AddWithValue("@subjectsID", exams_mo.SubjectsID);
+                    cmd.Parameters.AddWithValue("@subjectname", exams_mo.SubjectName);
+                    cmd.Parameters.AddWithValue("@id", exams_mo.ExamID);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
     }
 }

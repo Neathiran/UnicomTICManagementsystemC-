@@ -34,6 +34,7 @@
             subjects_btn = new Button();
             rooms_btn = new Button();
             exams_btn = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // course_btn
@@ -102,11 +103,21 @@
             exams_btn.UseVisualStyleBackColor = true;
             exams_btn.Click += exams_btn_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(297, 378);
+            button2.Name = "button2";
+            button2.Size = new Size(155, 29);
+            button2.TabIndex = 7;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
             // Student_Details
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
             Controls.Add(exams_btn);
             Controls.Add(rooms_btn);
             Controls.Add(subjects_btn);
@@ -126,5 +137,6 @@
         private Button subjects_btn;
         private Button rooms_btn;
         private Button exams_btn;
+        private Button button2;
     }
 }
