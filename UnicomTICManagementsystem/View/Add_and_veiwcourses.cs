@@ -92,14 +92,16 @@ namespace UnicomTICManagementsystem.View
 
         private void delete_course_btn_Click(object sender, EventArgs e)
         {
-            Courses_mo courses = new Courses_mo { Name = course_name.Text.Trim() };
-            if (courses.Name != "")
+            string Name = course_name.Text.Trim();
+            if (Name != "")
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to Delete", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    coursecontroller.Deletecourse(courses);
+                    coursecontroller.Deletecourse(Name);
+                    SubjectsCountroller subjectsCountroller = new SubjectsCountroller();
+                    subjectsCountroller.Delete_Course_subjects(Name);
                     MessageBox.Show("Delete Successfull ");
                     course_name.Clear();
                     addveiw();

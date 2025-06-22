@@ -22,6 +22,7 @@ namespace UnicomTICManagementsystem.View
 {
     public partial class Add_and_veiwstudents : Form
     {
+        int check = 0;
         private StudentController studentController;
         int selectedstudentid = -1;
         public Add_and_veiwstudents()
@@ -33,7 +34,7 @@ namespace UnicomTICManagementsystem.View
             ut.Visible = false;
             gender_combobox.DropDownStyle = ComboBoxStyle.DropDownList;
             gender_combobox.Items.AddRange(new string[] { "Male", "Female" });
-            gender_combobox.SelectedIndex = 0;
+            gender_combobox.SelectedIndex = -1;
 
 
 
@@ -78,6 +79,7 @@ namespace UnicomTICManagementsystem.View
             course.DataSource = courses;
             course.DisplayMember = "Name";
             course.ValueMember = "Id";
+            course.SelectedIndex = -1;
 
 
         }
@@ -93,6 +95,19 @@ namespace UnicomTICManagementsystem.View
 
         }
 
+        private void Check_inputs()
+        {
+            if (!string.IsNullOrWhiteSpace(name.Text) && !string.IsNullOrWhiteSpace(address.Text) && !string.IsNullOrWhiteSpace(age.Text) && !string.IsNullOrWhiteSpace(NIC_number.Text) && !string.IsNullOrWhiteSpace(course.Text) && !string.IsNullOrWhiteSpace(gender_combobox.Text))
+            {
+                check = 2;
+            }
+
+            else
+            {
+               
+                MessageBox.Show("Enter All INPUTS");
+            }
+        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -101,7 +116,8 @@ namespace UnicomTICManagementsystem.View
 
         private void add_student_btn_Click(object sender, EventArgs e)
         {
-           if (name.Text.Trim() != "" && address.Text.Trim() != "" && age.Text.Trim() != "" && NIC_number.Text.Trim() != "")
+            Check_inputs();
+            if (check == 2)
             {
                 UserController userController = new UserController();
                 string Id = userController.CreateUserID(age.Text, NIC_number.Text);
@@ -124,6 +140,7 @@ namespace UnicomTICManagementsystem.View
                     userController.AddUsers(students_Mo);
                     MessageBox.Show("UserId :" + students_Mo.UserId);
                     MessageBox.Show("PassWord 4321");
+                    check = 0;
                     clear();
                 }
                 else
@@ -131,21 +148,12 @@ namespace UnicomTICManagementsystem.View
                     clear();
                 }
             }
-            else
-            {
-                clear();
-                MessageBox.Show("INVALID INPUTS");
-            }
+           
 
 
 
         }
-        private void ClearInputs()
-        {
-            //////
-            clear();
-
-        }
+       
 
         private void course_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -250,12 +258,14 @@ namespace UnicomTICManagementsystem.View
                     coursesName = course.Text.Trim(),
                     CoursesID = Convert.ToInt32(course.SelectedValue)
                 };
-                if (name.Text.Trim() != "" && address.Text.Trim() != "" && age.Text.Trim() != "" && NIC_number.Text.Trim() != "")
+                Check_inputs();
+                if (check == 2)
                 {
 
                     studentController.UpdateStudent(students_mo_);
                     MessageBox.Show("Update Successfull ");
                     addtoveiw();
+                    check = 0;
                 }
                 else
                 {

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace UnicomTICManagementsystem.Models
 {
-    internal class Timetables
+    internal class Roomname_mo
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
 
     }
 }

@@ -68,5 +68,39 @@ namespace UnicomTICManagementsystem.Controllers
             }
         }
 
+        public List<Subjects_mo> GetsubjectBYcourse(int ID)
+        {
+            List<Subjects_mo> subjects_mo = new List<Subjects_mo>();
+            string viewSubjectByIdQuery = @"SELECT ID,SubjectName FROM Subjects WHERE CoursesID = @coursesID ";
+            using (var conn = Dbconfing.GetConnection())
+            {
+
+                SQLiteCommand veiwsubject = new SQLiteCommand(viewSubjectByIdQuery, conn);
+                veiwsubject.Parameters.AddWithValue("@coursesID", ID);
+                var readers = veiwsubject.ExecuteReader();
+                while (readers.Read())
+                {
+                    Subjects_mo subjects_Mo = new Subjects_mo();
+                    subjects_Mo.ID = readers.GetInt32(0);
+                    subjects_Mo.SubjectName = readers.GetString(1);
+                    subjects_mo.Add(subjects_Mo);
+
+                }
+
+            }
+            return subjects_mo;
+        }
+
+        public void Delete_Course_subjects(string CoursesName)
+        {
+
+            using (var conn = Dbconfing.GetConnection())
+            {
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Subjects WHERE CoursesName = @coursesname";
+                cmd.Parameters.AddWithValue("@coursesname", CoursesName);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

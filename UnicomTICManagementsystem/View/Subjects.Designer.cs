@@ -161,6 +161,7 @@
             Controls.Add(subject_view);
             Name = "Subjects";
             Text = "Subjects";
+            Load += Subjects_Load;
             ((System.ComponentModel.ISupportInitialize)subject_view).EndInit();
             ResumeLayout(false);
             PerformLayout();

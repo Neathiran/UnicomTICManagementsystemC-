@@ -71,12 +71,12 @@ namespace UnicomTICManagementsystem.View
             if (j > 0)
             {
                 subject_view.DataSource = search_course;
-                
+
             }
             else
             {
                 MessageBox.Show("Data Not Found ");
-               
+
             }
         }
 
@@ -184,6 +184,11 @@ namespace UnicomTICManagementsystem.View
                     MessageBox.Show("Enter the Subject you Want to Delete");
                 }
             }
+        }
+
+        private void Subjects_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

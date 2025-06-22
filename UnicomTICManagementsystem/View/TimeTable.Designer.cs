@@ -45,33 +45,36 @@
             roomname_combobox = new ComboBox();
             date = new DateTimePicker();
             time_from = new TextBox();
-            textBox2 = new TextBox();
+            time_to = new TextBox();
             label7 = new Label();
+            course = new TextBox();
             ((System.ComponentModel.ISupportInitialize)timetable_view).BeginInit();
             SuspendLayout();
             // 
             // add_btn
             // 
             add_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            add_btn.Location = new Point(12, 391);
+            add_btn.Location = new Point(12, 324);
             add_btn.Name = "add_btn";
             add_btn.Size = new Size(75, 28);
             add_btn.TabIndex = 0;
             add_btn.Text = "Add";
             add_btn.UseVisualStyleBackColor = true;
+            add_btn.Click += add_btn_Click;
             // 
             // timetable_view
             // 
             timetable_view.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            timetable_view.Location = new Point(300, 12);
+            timetable_view.Location = new Point(300, 71);
             timetable_view.Name = "timetable_view";
             timetable_view.Size = new Size(488, 310);
             timetable_view.TabIndex = 1;
+            timetable_view.CellContentClick += timetable_view_CellContentClick;
             // 
             // update_btn
             // 
             update_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            update_btn.Location = new Point(113, 391);
+            update_btn.Location = new Point(113, 324);
             update_btn.Name = "update_btn";
             update_btn.Size = new Size(81, 28);
             update_btn.TabIndex = 2;
@@ -81,7 +84,7 @@
             // delete_btn
             // 
             delete_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            delete_btn.Location = new Point(219, 387);
+            delete_btn.Location = new Point(219, 322);
             delete_btn.Name = "delete_btn";
             delete_btn.Size = new Size(77, 32);
             delete_btn.TabIndex = 3;
@@ -97,6 +100,7 @@
             back_btn.TabIndex = 4;
             back_btn.Text = "⬅️";
             back_btn.UseVisualStyleBackColor = true;
+            back_btn.Click += back_btn_Click;
             // 
             // label1
             // 
@@ -122,7 +126,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(12, 230);
+            label3.Location = new Point(12, 194);
             label3.Name = "label3";
             label3.Size = new Size(65, 21);
             label3.TabIndex = 7;
@@ -132,7 +136,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(16, 182);
+            label4.Location = new Point(219, 17);
             label4.Name = "label4";
             label4.Size = new Size(61, 21);
             label4.TabIndex = 8;
@@ -142,7 +146,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(12, 325);
+            label5.Location = new Point(12, 257);
             label5.Name = "label5";
             label5.Size = new Size(105, 21);
             label5.TabIndex = 9;
@@ -152,7 +156,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(12, 275);
+            label6.Location = new Point(480, 21);
             label6.Name = "label6";
             label6.Size = new Size(93, 21);
             label6.TabIndex = 10;
@@ -162,37 +166,41 @@
             // 
             course_combobox.DropDownStyle = ComboBoxStyle.DropDownList;
             course_combobox.FormattingEnabled = true;
-            course_combobox.Location = new Point(96, 184);
+            course_combobox.Location = new Point(286, 19);
             course_combobox.Name = "course_combobox";
             course_combobox.Size = new Size(121, 23);
             course_combobox.TabIndex = 11;
+            course_combobox.SelectedIndexChanged += course_combobox_SelectedIndexChanged;
             // 
             // subject_combobox
             // 
             subject_combobox.DropDownStyle = ComboBoxStyle.DropDownList;
             subject_combobox.FormattingEnabled = true;
-            subject_combobox.Location = new Point(96, 232);
+            subject_combobox.Location = new Point(104, 196);
             subject_combobox.Name = "subject_combobox";
             subject_combobox.Size = new Size(121, 23);
             subject_combobox.TabIndex = 12;
+            subject_combobox.SelectedIndexChanged += subject_combobox_SelectedIndexChanged;
             // 
             // roomtype_combobox
             // 
             roomtype_combobox.DropDownStyle = ComboBoxStyle.DropDownList;
             roomtype_combobox.FormattingEnabled = true;
-            roomtype_combobox.Location = new Point(113, 277);
+            roomtype_combobox.Location = new Point(597, 23);
             roomtype_combobox.Name = "roomtype_combobox";
             roomtype_combobox.Size = new Size(121, 23);
             roomtype_combobox.TabIndex = 13;
+            roomtype_combobox.SelectedIndexChanged += roomtype_combobox_SelectedIndexChanged;
             // 
             // roomname_combobox
             // 
             roomname_combobox.DropDownStyle = ComboBoxStyle.DropDownList;
             roomname_combobox.FormattingEnabled = true;
-            roomname_combobox.Location = new Point(123, 323);
+            roomname_combobox.Location = new Point(132, 255);
             roomname_combobox.Name = "roomname_combobox";
             roomname_combobox.Size = new Size(121, 23);
             roomname_combobox.TabIndex = 14;
+            roomname_combobox.SelectedIndexChanged += roomname_combobox_SelectedIndexChanged;
             // 
             // date
             // 
@@ -210,16 +218,18 @@
             time_from.Size = new Size(89, 27);
             time_from.TabIndex = 16;
             time_from.Text = "8:00 AM";
+            time_from.TextChanged += time_from_TextChanged;
             // 
-            // textBox2
+            // time_to
             // 
-            textBox2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox2.ForeColor = SystemColors.WindowFrame;
-            textBox2.Location = new Point(213, 134);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(81, 27);
-            textBox2.TabIndex = 17;
-            textBox2.Text = "10:00 AM";
+            time_to.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            time_to.ForeColor = SystemColors.WindowFrame;
+            time_to.Location = new Point(213, 134);
+            time_to.Name = "time_to";
+            time_to.Size = new Size(81, 27);
+            time_to.TabIndex = 17;
+            time_to.Text = "10:00 AM";
+            time_to.TextChanged += textBox2_TextChanged;
             // 
             // label7
             // 
@@ -231,13 +241,22 @@
             label7.TabIndex = 18;
             label7.Text = "to";
             // 
+            // course
+            // 
+            course.Location = new Point(325, 387);
+            course.Name = "course";
+            course.Size = new Size(100, 23);
+            course.TabIndex = 19;
+            course.TextChanged += course_TextChanged;
+            // 
             // TimeTable
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(course);
             Controls.Add(label7);
-            Controls.Add(textBox2);
+            Controls.Add(time_to);
             Controls.Add(time_from);
             Controls.Add(date);
             Controls.Add(roomname_combobox);
@@ -257,6 +276,7 @@
             Controls.Add(add_btn);
             Name = "TimeTable";
             Text = "TimeTable";
+            Load += TimeTable_Load;
             ((System.ComponentModel.ISupportInitialize)timetable_view).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -281,7 +301,8 @@
         private ComboBox roomname_combobox;
         private DateTimePicker date;
         private TextBox time_from;
-        private TextBox textBox2;
+        private TextBox time_to;
         private Label label7;
+        private TextBox course;
     }
 }

@@ -34,7 +34,7 @@
             subjects_btn = new Button();
             rooms_btn = new Button();
             exams_btn = new Button();
-            button2 = new Button();
+            timetable_btn = new Button();
             SuspendLayout();
             // 
             // course_btn
@@ -103,21 +103,23 @@
             exams_btn.UseVisualStyleBackColor = true;
             exams_btn.Click += exams_btn_Click;
             // 
-            // button2
+            // timetable_btn
             // 
-            button2.Location = new Point(297, 378);
-            button2.Name = "button2";
-            button2.Size = new Size(155, 29);
-            button2.TabIndex = 7;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            timetable_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            timetable_btn.Location = new Point(297, 378);
+            timetable_btn.Name = "timetable_btn";
+            timetable_btn.Size = new Size(155, 28);
+            timetable_btn.TabIndex = 7;
+            timetable_btn.Text = "Time Table";
+            timetable_btn.UseVisualStyleBackColor = true;
+            timetable_btn.Click += timetable_btn_Click;
             // 
             // Student_Details
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button2);
+            Controls.Add(timetable_btn);
             Controls.Add(exams_btn);
             Controls.Add(rooms_btn);
             Controls.Add(subjects_btn);
@@ -137,6 +139,6 @@
         private Button subjects_btn;
         private Button rooms_btn;
         private Button exams_btn;
-        private Button button2;
+        private Button timetable_btn;
     }
 }

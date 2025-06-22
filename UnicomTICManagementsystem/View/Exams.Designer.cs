@@ -62,7 +62,7 @@
             // update_btn
             // 
             update_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            update_btn.Location = new Point(141, 346);
+            update_btn.Location = new Point(134, 346);
             update_btn.Name = "update_btn";
             update_btn.Size = new Size(78, 33);
             update_btn.TabIndex = 1;

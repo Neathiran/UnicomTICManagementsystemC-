@@ -83,14 +83,14 @@ namespace UnicomTICManagementsystem.Controllers
                 }
             }
         }  
-        public void Deletecourse(Courses_mo courses)
+        public void Deletecourse(string courses)
         {
             
                 using (var conn = Dbconfing.GetConnection())
                 {
                     var cmd = conn.CreateCommand();
                     cmd.CommandText = "DELETE FROM Courses WHERE CourseName = @coursename";
-                    cmd.Parameters.AddWithValue("@coursename", courses.Name);
+                    cmd.Parameters.AddWithValue("@coursename", courses);
                     cmd.ExecuteNonQuery();
                 }
             }

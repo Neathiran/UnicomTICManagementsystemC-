@@ -15,11 +15,11 @@ namespace UnicomTICManagementsystem.Controllers
     {
         public List<Date_Time_mo> GetTime(string Date)
         { 
-            string viewroomtypeByIdQuery = @"SELECT Time FROM Exams WHERE Date = @date ";
+            string viewtimeBydateQuery = @"SELECT Time FROM Exams WHERE Date = @date ";
             using (var conn = Dbconfing.GetConnection())
             {
 
-                SQLiteCommand veiwdatetime = new SQLiteCommand(viewroomtypeByIdQuery, conn);
+                SQLiteCommand veiwdatetime = new SQLiteCommand(viewtimeBydateQuery, conn);
                 veiwdatetime.Parameters.AddWithValue("@date", Date);
                 var readers = veiwdatetime.ExecuteReader();
                 List<Date_Time_mo> date_Time_mo_ = new List<Date_Time_mo>();

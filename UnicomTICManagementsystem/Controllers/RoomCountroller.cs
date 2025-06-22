@@ -112,5 +112,32 @@ namespace UnicomTICManagementsystem.Controllers
             }
         }
 
+        public List<Rooms_mo> GetRoomName(string RoomType)
+        {
+            List<Rooms_mo> _rooms_mo_ = new List<Rooms_mo>();
+            string viewroomnameByRoomtypeQuery = @"SELECT ID,RoomName FROM Rooms WHERE RoomType = @roomtype ";
+            using (var conn = Dbconfing.GetConnection())
+            {
+
+                SQLiteCommand veiwroomName = new SQLiteCommand(viewroomnameByRoomtypeQuery, conn);
+                veiwroomName.Parameters.AddWithValue("@roomtype", RoomType);
+                var readers = veiwroomName.ExecuteReader();
+                while (readers.Read())
+                {
+                    if (readers.GetString(1) != "")
+                    {
+                        Rooms_mo rooms_Mo = new Rooms_mo();
+                        rooms_Mo.ID = readers.GetInt32(0);
+                        rooms_Mo.RoomName = readers.GetString(1);
+                        _rooms_mo_.Add(rooms_Mo);
+                    }
+
+                }
+
+            }
+            return _rooms_mo_;
+        }
+
+
     }
 }

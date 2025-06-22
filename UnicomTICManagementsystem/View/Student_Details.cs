@@ -56,7 +56,14 @@ namespace UnicomTICManagementsystem.View
         private void exams_btn_Click(object sender, EventArgs e)
         {
             Exams exams = new Exams();
-            exams.Show();   
+            exams.Show();
+            this.Hide();
+        }
+
+        private void timetable_btn_Click(object sender, EventArgs e)
+        {
+            TimeTable timeTable = new TimeTable();
+            timeTable.Show();
             this.Hide();
         }
     }
