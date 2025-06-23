@@ -92,7 +92,47 @@ namespace UnicomTICManagementsystem.Controllers
             }
         }
 
+        public void DeleteTimeTableByTimeSlot(int ID)
+        {
+            string deleteQuery = "DELETE FROM TimeTable WHERE ID = @ID";
 
+            using (var conn = Dbconfing.GetConnection())
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(deleteQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateTimeTable(TimeTables_mo updatedTimeTable)
+        {
+            string updateQuery = @"UPDATE TimeTable 
+                           SET Date = @Date, 
+                               TimeSlot = @TimeSlot, 
+                               RoomsID = @RoomID, 
+                               RoomName = @RoomName, 
+                               SubjectsID = @SubjectsID, 
+                               SubjectName = @SubjectName 
+                           WHERE ID = @ID";
+
+            using (var conn = Dbconfing.GetConnection())
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(updateQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Date", updatedTimeTable.Date);
+                    cmd.Parameters.AddWithValue("@TimeSlot", updatedTimeTable.TimeSlot);
+                    cmd.Parameters.AddWithValue("@RoomID", updatedTimeTable.RoomID);
+                    cmd.Parameters.AddWithValue("@RoomName", updatedTimeTable.RoomName);
+                    cmd.Parameters.AddWithValue("@SubjectsID", updatedTimeTable.SubjectsID);
+                    cmd.Parameters.AddWithValue("@SubjectName", updatedTimeTable.SubjectName);
+                    cmd.Parameters.AddWithValue("@ID", updatedTimeTable.ID); 
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
     }
 }

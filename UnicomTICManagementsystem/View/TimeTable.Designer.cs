@@ -32,7 +32,6 @@
             timetable_view = new DataGridView();
             update_btn = new Button();
             delete_btn = new Button();
-            back_btn = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -47,7 +46,6 @@
             time_from = new TextBox();
             time_to = new TextBox();
             label7 = new Label();
-            course = new TextBox();
             ((System.ComponentModel.ISupportInitialize)timetable_view).BeginInit();
             SuspendLayout();
             // 
@@ -70,16 +68,18 @@
             timetable_view.Size = new Size(488, 310);
             timetable_view.TabIndex = 1;
             timetable_view.CellContentClick += timetable_view_CellContentClick;
+            timetable_view.SelectionChanged += view_SelectionChanged;
             // 
             // update_btn
             // 
             update_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            update_btn.Location = new Point(113, 324);
+            update_btn.Location = new Point(113, 326);
             update_btn.Name = "update_btn";
             update_btn.Size = new Size(81, 28);
             update_btn.TabIndex = 2;
             update_btn.Text = "Update";
             update_btn.UseVisualStyleBackColor = true;
+            update_btn.Click += update_btn_Click;
             // 
             // delete_btn
             // 
@@ -90,17 +90,7 @@
             delete_btn.TabIndex = 3;
             delete_btn.Text = "Delete";
             delete_btn.UseVisualStyleBackColor = true;
-            // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(12, 12);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(40, 26);
-            back_btn.TabIndex = 4;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click;
+            delete_btn.Click += delete_btn_Click;
             // 
             // label1
             // 
@@ -241,20 +231,11 @@
             label7.TabIndex = 18;
             label7.Text = "to";
             // 
-            // course
-            // 
-            course.Location = new Point(325, 387);
-            course.Name = "course";
-            course.Size = new Size(100, 23);
-            course.TabIndex = 19;
-            course.TextChanged += course_TextChanged;
-            // 
             // TimeTable
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(course);
             Controls.Add(label7);
             Controls.Add(time_to);
             Controls.Add(time_from);
@@ -269,11 +250,11 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(back_btn);
             Controls.Add(delete_btn);
             Controls.Add(update_btn);
             Controls.Add(timetable_view);
             Controls.Add(add_btn);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "TimeTable";
             Text = "TimeTable";
             Load += TimeTable_Load;
@@ -288,7 +269,6 @@
         private DataGridView timetable_view;
         private Button update_btn;
         private Button delete_btn;
-        private Button back_btn;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -303,6 +283,5 @@
         private TextBox time_from;
         private TextBox time_to;
         private Label label7;
-        private TextBox course;
     }
 }

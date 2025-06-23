@@ -54,6 +54,7 @@
             Lecturer_btn.TabIndex = 2;
             Lecturer_btn.Text = "Lecturers";
             Lecturer_btn.UseVisualStyleBackColor = true;
+            Lecturer_btn.Click += Lecturer_btn_Click;
             // 
             // staff_btn
             // 

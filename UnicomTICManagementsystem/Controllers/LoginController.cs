@@ -14,34 +14,46 @@ namespace UnicomTICManagementsystem.Controllers
     {
         public string Check(Id_Password id_Password)
         {
-            using (var conn = Dbconfing.GetConnection())
+            try
             {
-
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = @"SELECT UserID, Password, Role FROM Users_123 WHERE UserID = @id";
-                cmd.Parameters.AddWithValue("@id", id_Password.Id);
-
-                using (var reader = cmd.ExecuteReader())
+                using (var conn = Dbconfing.GetConnection())
                 {
-                    if (reader.Read())
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = @"SELECT Password, Role FROM Users WHERE UserID = @id";
+                    cmd.Parameters.AddWithValue("@id", id_Password.Id);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        users_mo users = new users_mo();
-                        users.Id = reader.GetString(reader.GetOrdinal("UserID"));
-                        users.Password = reader.GetString(reader.GetOrdinal("Password"));
-                        users.Role = reader.GetString(reader.GetOrdinal("Role"));
-
-
-                        if (users.Password == id_Password.Password)
+                        if (reader.Read())  // Check if there is a record for the provided UserID
                         {
-                            string Role = users.Role;
-                            return Role;
+                            string storedPassword = reader.GetString(0);  // Password from DB
+                            string role = reader.GetString(1);  // Role from DB
+
+                            if (storedPassword == id_Password.Password)  // Compare password
+                            {
+                                return role;  // Return the Role if password matches
+                            }
+                            else
+                            {
+                                // Password does not match
+                                return null;
+                            }
+                        }
+                        else
+                        {
+                            // User not found
+                            return null;
                         }
                     }
                 }
             }
-
-
-            return null;
+            catch (Exception ex)
+            {
+                // Handle potential exceptions (e.g., DB connection issues)
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
         }
+
     }
 }

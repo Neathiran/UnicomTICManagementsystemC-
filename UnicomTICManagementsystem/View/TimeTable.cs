@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using UnicomTICManagementsystem.Controllers;
 using UnicomTICManagementsystem.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace UnicomTICManagementsystem.View
 {
     public partial class TimeTable : Form
     {
-        int check_all = 0;
+        int check_all_combo = 0;
+        int selectedstudentid = 0;
+        int check_all_time = 0;
         TimeTableController timeTableController;
         SubjectsCountroller subjectsCountroller;
         RoomCountroller roomCountroller;
@@ -32,39 +39,103 @@ namespace UnicomTICManagementsystem.View
 
         }
 
-        public string check_time_()
+        //public string check_time_()
+        //{
+        //    if (DateTime.TryParseExact(time_from.Text, "hh:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeFrom) &&
+        //         DateTime.TryParseExact(time_to.Text, "hh:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeTo))
+        //    {
+        //        if (timeFrom < timeTo)
+        //        {
+        //            List<Date_Time_mo> date_Time_mo = timeTableController.GetTime_Date(roomname_combobox.Text);
+
+
+        //            foreach (var slot in date_Time_mo)
+        //            {
+        //                string[] times = slot.Time.Split('-');
+        //                if (times.Length != 2) continue;
+
+        //                DateTime existingStart = DateTime.Parse(times[0].Trim());
+        //                DateTime existingEnd = DateTime.Parse(times[1].Trim());
+
+
+
+        //                if (timeFrom < existingEnd && existingStart < timeTo)
+        //                {
+        //                    if (check_all_time != 0)
+        //                    {
+        //                        if (date.Text == slot.Date)
+        //                        {
+        //                            MessageBox.Show("The Room Time Already Exists");
+        //                            check_all_time = 0;
+        //                            return null;
+        //                        }
+        //                        string Time_01 = timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
+        //                        return Time_01;
+        //                    }
+
+        //                }
+        //                else
+        //                {
+
+        //                }
+        //        else 
+        //                { 
+
+        //                }
+
+        private string CheckTime()
         {
-            List<Date_Time_mo> date_Time_mo = timeTableController.GetTime_Date(roomname_combobox.Text);
+            string[] formats = { "h:mm tt", "hh:mm tt" };
 
-
-            DateTime timeFrom = DateTime.Parse(time_from.Text);
-            DateTime timeTo = DateTime.Parse(time_to.Text);
-
-            foreach (var slot in date_Time_mo)
+            if (DateTime.TryParseExact(time_from.Text.Trim(), formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeFrom) &&
+                DateTime.TryParseExact(time_to.Text.Trim(), formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeTo))
             {
-                string[] times = slot.Time.Split('-');
-                if (times.Length != 2) continue;
-
-                DateTime existingStart = DateTime.Parse(times[0].Trim());
-                DateTime existingEnd = DateTime.Parse(times[1].Trim());
-
-
-
-                if (timeFrom < existingEnd && existingStart < timeTo)
+                if (timeFrom < timeTo)
                 {
-                    if (check_all == 2)
+
+                    List<Date_Time_mo> examSlots = timeTableController.GetTime_Date(roomname_combobox.Text);
+
+                    foreach (var slot in examSlots)
                     {
-                        if (date.Text == slot.Date)
+
+                        string[] times = slot.Time.Split('-');
+                        if (times.Length != 2)
+                            continue;
+
+                        DateTime existingStart = DateTime.Parse(times[0].Trim());
+                        DateTime existingEnd = DateTime.Parse(times[1].Trim());
+
+
+                        if (date.Text == slot.Date &&
+                            timeFrom < existingEnd &&
+                            existingStart < timeTo)
                         {
-                            MessageBox.Show("The Room Time Already Exists");
-                            return null;
+                            if (check_all_time != 3)
+                            {
+                                MessageBox.Show("Time conflict detected with another exam.");
+                                return null;
+                            }
                         }
                     }
+
+                    return timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
+                }
+                else
+                {
+                    MessageBox.Show("Start time must be earlier than end time.");
+                    return null;
                 }
             }
-            string Time_01 = timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
-            return Time_01;
+            else
+            {
+                MessageBox.Show("Invalid time format. Please use format like 07:00 AM.");
+                return null;
+            }
         }
+
+        /// <summary>
+        /// ///////////////////////////////
+        /// </summary>
 
         //public void Add_Course_combo()
         //{
@@ -98,7 +169,7 @@ namespace UnicomTICManagementsystem.View
 
         public void Add_Subject_combo()
         {
-            if (check_all == 2)
+            if (check_all_combo == 2)
             {
                 int CourseId;
                 if (course_combobox.SelectedValue != null && int.TryParse(course_combobox.SelectedValue.ToString(), out CourseId))
@@ -139,7 +210,7 @@ namespace UnicomTICManagementsystem.View
 
         public void Add_Roomname_combo()
         {
-            if (check_all == 2)
+            if (check_all_combo == 2)
             {
                 RoomCountroller roomCountroller = new RoomCountroller();
                 List<Rooms_mo> rooms = roomCountroller.GetRoomName(roomtype_combobox.Text);
@@ -150,19 +221,14 @@ namespace UnicomTICManagementsystem.View
             }
             else
             {
-                try
-                {
-                    RoomCountroller roomCountroller = new RoomCountroller();
-                    List<Rooms_mo> rooms_ = roomCountroller.GetRooms();
-                    roomname_combobox.DataSource = rooms_;
-                    roomname_combobox.DisplayMember = "RoomName";
-                    roomname_combobox.ValueMember = "ID";
-                    roomname_combobox.SelectedIndex = -1;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+                ///
+
+                RoomCountroller roomCountroller = new RoomCountroller();
+                List<Rooms_mo> rooms_ = roomCountroller.GetRooms();
+                roomname_combobox.DataSource = rooms_;
+                roomname_combobox.DisplayMember = "RoomName";
+                roomname_combobox.ValueMember = "ID";
+                roomname_combobox.SelectedIndex = -1;
 
             }
         }
@@ -180,12 +246,12 @@ namespace UnicomTICManagementsystem.View
 
         private void add_btn_Click(object sender, EventArgs e)
         {
-            string Time = check_time_();
+            string Time = CheckTime();
             if (Time != null)
             {
                 TimeTables_mo timeTables = new TimeTables_mo
                 {
-                    SubjectName= subject_combobox.Text,
+                    SubjectName = subject_combobox.Text,
                     SubjectsID = Convert.ToInt32(subject_combobox.SelectedValue),
                     Date = date.Text,
                     TimeSlot = Time,
@@ -212,7 +278,7 @@ namespace UnicomTICManagementsystem.View
 
         private void course_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            check_all = 2;
+            check_all_combo = 2;
             Add_Subject_combo();
         }
 
@@ -223,12 +289,12 @@ namespace UnicomTICManagementsystem.View
 
         private void time_from_TextChanged(object sender, EventArgs e)
         {
-            check_all = 1;
+            check_all_time = 1;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            check_all = 1;
+            check_all_time = 1;
         }
 
         private void course_TextChanged(object sender, EventArgs e)
@@ -243,13 +309,75 @@ namespace UnicomTICManagementsystem.View
 
         private void roomtype_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            check_all = 2;
+            check_all_combo = 2;
             Add_Roomname_combo();
         }
 
         private void roomname_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void view_SelectionChanged(object sender, EventArgs e)
+        {
+            if (timetable_view.SelectedRows.Count > 0)
+            {
+                var timeTables = timetable_view.SelectedRows[0].DataBoundItem as TimeTables_mo;
+                if (timeTables != null)
+                {
+                    string[] times = timeTables.TimeSlot.Split('-');
+                    selectedstudentid = timeTables.ID;
+                    roomname_combobox.Text = timeTables.RoomName;
+                    subject_combobox.Text = timeTables.SubjectName;
+                    time_from.Text = times[0];
+                    time_to.Text = times[1];
+                    date.Text = timeTables.Date;
+
+                }
+            }
+        }
+        private TimeTables_mo selectedTimeTable;
+
+        private void update_btn_Click(object sender, EventArgs e)
+        {
+            string Time_up = CheckTime();
+            if (selectedstudentid > 0)
+            {
+                TimeTables_mo timeTables = new TimeTables_mo
+                {
+                    SubjectName = subject_combobox.Text,
+                    SubjectsID = Convert.ToInt32(subject_combobox.SelectedValue),
+                    Date = date.Text,
+                    TimeSlot = Time_up,
+                    RoomName = roomname_combobox.Text,
+                    RoomID = Convert.ToInt32(roomname_combobox.SelectedValue)
+                };
+                TimeTableController timeTableController = new TimeTableController();
+                timeTableController.UpdateTimeTable(timeTables);
+                addtoveiw();
+            }
+            else
+            {
+                MessageBox.Show("Select the Row Fist");
+            }
+        }
+
+        private void delete_btn_Click(object sender, EventArgs e)
+        {
+            if (selectedstudentid > 0)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    TimeTableController timeTableController = new TimeTableController();
+                    timeTableController.DeleteTimeTableByTimeSlot(selectedstudentid);
+                    addtoveiw();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select the Row Fist");
+            }
         }
     }
 }

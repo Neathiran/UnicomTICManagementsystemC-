@@ -38,17 +38,16 @@ namespace UnicomTICManagementsystem.Controllers
         public List<Exams_mo> GetExams()
         {
             List<Exams_mo> Exams_mo_ = new List<Exams_mo>();
-            string veiwroomsQuery = @"SELECT * FROM Exams";
+            string veiwexamQuery = @"SELECT * FROM Exams";
             using (var conn = Dbconfing.GetConnection())
             {
 
-                SQLiteCommand veiwrooms = new SQLiteCommand(veiwroomsQuery, conn);
-                var readers = veiwrooms.ExecuteReader();
+                SQLiteCommand veiwexam = new SQLiteCommand(veiwexamQuery, conn);
+                var readers = veiwexam.ExecuteReader();
                 int i = 1;
                 while (readers.Read())
                 {
-                    if (readers.GetString(2) != "")
-                    {
+                   
                         Exams_mo exams_mo = new Exams_mo();
                         exams_mo.NO = i;
                         exams_mo.ExamID = readers.GetInt32(0);
@@ -62,7 +61,7 @@ namespace UnicomTICManagementsystem.Controllers
                     }
 
 
-                }
+                
 
             }
             return Exams_mo_;
@@ -130,6 +129,7 @@ VALUES (@date, @time, @examName, @subjectsID, @subjectName)";
                 }
             }
         }
+       
 
 
     }

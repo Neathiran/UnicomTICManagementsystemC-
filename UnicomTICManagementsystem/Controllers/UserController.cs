@@ -13,20 +13,30 @@ namespace UnicomTICManagementsystem.Controllers
 {
     internal class UserController
     {
-        public string CreateUserID(string Age,string NIC_Number)
+        public string CreateUserID(string Age,string NIC_Number,string role)
         {
+            string Name = null;
             List<char> NIC = new List<char>();
             foreach (char NIC_Num in NIC_Number)
             {
                 NIC.Add(NIC_Num);
             }
-           
-                Random random = new Random();
-            int randomNumber = random.Next(1000, 9999);
-            string ID = "UT" + NIC[3] + NIC[1] + Age + NIC[2] + NIC[4];
+           if (role == "Student")
+            {
+                Name = "UT";
+            }
+           else if (role == "Lecturers")
+            {
+                Name = "LC";
+            }
+            else
+            {
+                Name = "ST";
+            }
+            string ID = Name + NIC[3] + NIC[1] + Age + NIC[2] + NIC[4];
             return ID;
         }
-        public void AddUsers(Students_mo students_)
+        public void AddUsers(string userid,string role)
         {
 
             using (var Dbconn = Dbconfing.GetConnection())
@@ -36,9 +46,9 @@ namespace UnicomTICManagementsystem.Controllers
                         string AddscourseQuery = "INSERT INTO Users(UserID,Password,Role) VALUES (@userid,@password,@role)";
                         SQLiteCommand SQLite = new SQLiteCommand(AddscourseQuery, Dbconn);
                 
-                        SQLite.Parameters.AddWithValue("@userid", students_.UserId);
+                        SQLite.Parameters.AddWithValue("@userid", userid);
                         SQLite.Parameters.AddWithValue("@password","4321");
-                        SQLite.Parameters.AddWithValue("@role", students_.role);
+                        SQLite.Parameters.AddWithValue("@role", role);
                         SQLite.ExecuteNonQuery();               
             }
         }
@@ -79,5 +89,35 @@ namespace UnicomTICManagementsystem.Controllers
                 cmd.ExecuteNonQuery();
             }
         }
+        public List<Users_mo> GetUsersByRole(string role)
+        {
+            string query = @"SELECT * FROM Users WHERE Role = @role";
+
+            List<Users_mo> usersList = new List<Users_mo>();
+
+            using (var conn = Dbconfing.GetConnection())
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@role", role);
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Users_mo user = new Users_mo
+                        {
+                            UserID = reader.GetString(0),
+                            Password = reader.GetString(1),
+                            Role = reader.GetString(2)
+                        };
+                        usersList.Add(user);
+                    }
+                }
+            }
+
+            return usersList;
+        }
+
     }
 }

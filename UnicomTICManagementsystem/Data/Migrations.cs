@@ -83,8 +83,12 @@ namespace UnicomTICManagementsystem.Data
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             LecturerName TEXT NOT NULL,
             CoursesID INTEGER NOT NULL,
+            Gender TEXT NOT NULL,
             CourseName TEXT NOT NULL,
             UserID TEXT NOT NULL,
+            NICNumber TEXT NOT NULL,
+            PhoneNumber TEXT NOT NULL,
+            Date TEXT NOT NULL,
             FOREIGN KEY (UserID) REFERENCES Users(UserID),
             FOREIGN KEY (CoursesID) REFERENCES Courses(ID)
 
@@ -99,6 +103,7 @@ namespace UnicomTICManagementsystem.Data
             UserID TEXT NOT NULL,
             NICNumber TEXT NOT NULL,
             CoursesID INTEGER NOT NULL,
+            Date TEXT NOT NULL,
             FOREIGN KEY (UserID) REFERENCES Users(UserID),
              FOREIGN KEY (CoursesID) REFERENCES Courses(ID)
         
@@ -116,7 +121,10 @@ namespace UnicomTICManagementsystem.Data
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             StaffName TEXT NOT NULL,
             PhoneNumber TEXT NOT NULL,
+            Gender TEXT NOT NULL,
+            NICNumber TEXT NOT NULL,
             UserID TEXT NOT NULL,
+            Date TEXT NOT NULL,
             FOREIGN KEY (UserID) REFERENCES Users(UserID)
         );
     
@@ -127,6 +135,15 @@ namespace UnicomTICManagementsystem.Data
             FOREIGN KEY (UserID) REFERENCES Users(UserID)
              
         );
+
+        CREATE TABLE IF NOT EXISTS Salaries (
+             ID INTEGER PRIMARY KEY AUTOINCREMENT,
+             Month TEXT NOT NULL,
+            Salary  NOT NULL,
+            UserID TEXT NOT NULL,
+            FOREIGN KEY (UserID) REFERENCES Users(UserID)
+        );
+
         
             
         ";

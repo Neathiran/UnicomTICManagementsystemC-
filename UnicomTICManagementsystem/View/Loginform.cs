@@ -1,6 +1,7 @@
 using UnicomTICManagementsystem.Controllers;
 using UnicomTICManagementsystem.Forms;
 using UnicomTICManagementsystem.Models;
+using UnicomTICManagementsystem.View;
 
 namespace UnicomTICManagementsystem
 {
@@ -33,35 +34,53 @@ namespace UnicomTICManagementsystem
 
         private void login_Click(object sender, EventArgs e)
         {
-            Id_Password id_Password = new Id_Password();
-            id_Password.Id = userid.Text;
-            id_Password.Password = password.Text;
-            if (id_Password.Id == "Admin" && id_Password.Password == "12345")
-            {
-                Menu menu = new Menu();
-                menu.Show();
-                this.Hide();
 
+            
+            Id_Password id_Password = new Id_Password();
+            id_Password.Id = userid.Text.Trim();
+            id_Password.Password = password.Text.Trim();
+
+            
+            if (string.IsNullOrEmpty(id_Password.Id) || string.IsNullOrEmpty(id_Password.Password))
+            {
+                MessageBox.Show("Please enter both UserID and Password.");
+                return;
+            }
+
+           
+            LoginController lc = new LoginController();
+            string role = lc.Check(id_Password);
+
+            
+            if (role != null)
+            {
+                if (role == "Student")
+                {
+                    MessageBox.Show("Student Login");
+                }
+                else if (role == "Lecturer")  
+                {
+                    Menu menu = new Menu();
+                    menu.Show();
+                    this.Hide();
+                }
+                else if (role == "Staff")
+                {
+                  
+                    MessageBox.Show("Staff Login");
+                }
             }
             else
             {
-                LoginController lc = new LoginController();
-                string role = lc.Check(id_Password);
-                if (role != null)
-                {
-                    if (role == "Student")
-                    {
-                        MessageBox.Show("Student Login");
-                    }
-
-                }
-                MessageBox.Show("INCORRCET USERID OR PASSWORD  ");
-                userid.Clear();
-                password.Clear();
-
+                
+                MessageBox.Show("Incorrect UserID or Password");
+                userid.Clear();  
+                password.Clear(); 
             }
-          
-           
+
+
+
+
 
         }
 

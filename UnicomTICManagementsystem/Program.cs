@@ -1,5 +1,6 @@
 using UnicomTICManagementsystem.Controllers;
 using UnicomTICManagementsystem.Data;
+    using UnicomTICManagementsystem.Forms;
 
 namespace UnicomTICManagementsystem
 {
@@ -14,7 +15,7 @@ namespace UnicomTICManagementsystem
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Loginform());
+            Application.Run(new Menu());
             Migrations.create_table();
         
         }

@@ -38,7 +38,6 @@
             Add_btn = new Button();
             delete_btn = new Button();
             room_veiw = new DataGridView();
-            back_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)room_veiw).BeginInit();
             SuspendLayout();
             // 
@@ -140,23 +139,11 @@
             room_veiw.TabIndex = 10;
             room_veiw.CellContentClick += room_veiw_CellContentClick;
             // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(12, 12);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(53, 31);
-            back_btn.TabIndex = 11;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += button1_Click;
-            // 
             // Rooms
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(back_btn);
             Controls.Add(room_veiw);
             Controls.Add(delete_btn);
             Controls.Add(Add_btn);
@@ -167,6 +154,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Rooms";
             Text = "Rooms";
             ((System.ComponentModel.ISupportInitialize)room_veiw).EndInit();
@@ -186,6 +174,5 @@
         private Button Add_btn;
         private Button delete_btn;
         private DataGridView room_veiw;
-        private Button back_btn;
     }
 }

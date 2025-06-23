@@ -21,7 +21,7 @@ namespace UnicomTICManagementsystem.View
     {
         private CourseController coursecontroller;
         int selectedcourseId = -1;
-
+        int Change = 0;
         public Add_and_veiwcourses()
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace UnicomTICManagementsystem.View
             else
             {
                 course_name.Clear();
-                
+
             }
 
         }
@@ -135,6 +135,8 @@ namespace UnicomTICManagementsystem.View
                 {
 
                     coursecontroller.UpdateCourses(courses);
+                    StudentController studentController = new StudentController();
+                    studentController.UpdateCourse(courses);
                     addveiw();
                     update_coursename.Visible = false;
                     update_coursename.Clear();
@@ -152,7 +154,7 @@ namespace UnicomTICManagementsystem.View
                 MessageBox.Show("Select the Raw");
             }
 
-            
+
         }
 
         private void add_course_name_Click(object sender, EventArgs e)
@@ -164,7 +166,7 @@ namespace UnicomTICManagementsystem.View
                 coursecontroller.Addcourse(courses_Mo);
                 MessageBox.Show("Add Successfull ");
                 course_name.Clear();
-                 addveiw();
+                addveiw();
             }
             else
             {
@@ -236,6 +238,11 @@ namespace UnicomTICManagementsystem.View
             Student_Details student_Details = new Student_Details();
             student_Details.Show();
             this.Hide();
+        }
+
+        private void Add_and_veiwcourses_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

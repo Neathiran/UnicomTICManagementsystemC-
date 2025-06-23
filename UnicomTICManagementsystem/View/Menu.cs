@@ -39,5 +39,12 @@ namespace UnicomTICManagementsystem.Forms
         {
 
         }
+
+        private void Lecturer_btn_Click(object sender, EventArgs e)
+        {
+            Lecturers lecturers_Details = new Lecturers();
+            lecturers_Details.Show();
+            this.Hide();
+        }
     }
 }

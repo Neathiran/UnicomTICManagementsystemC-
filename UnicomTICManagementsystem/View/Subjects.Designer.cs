@@ -33,7 +33,6 @@
             label2 = new Label();
             subject = new TextBox();
             courses_combobox = new ComboBox();
-            back_btn = new Button();
             add_subject_btn = new Button();
             delete_subject_btn = new Button();
             search_subject_btn = new Button();
@@ -89,17 +88,6 @@
             courses_combobox.TabIndex = 4;
             courses_combobox.SelectedIndexChanged += courses_combobox_SelectedIndexChanged;
             // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(11, 12);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(57, 32);
-            back_btn.TabIndex = 5;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click;
-            // 
             // add_subject_btn
             // 
             add_subject_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -153,12 +141,12 @@
             Controls.Add(search_subject_btn);
             Controls.Add(delete_subject_btn);
             Controls.Add(add_subject_btn);
-            Controls.Add(back_btn);
             Controls.Add(courses_combobox);
             Controls.Add(subject);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(subject_view);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Subjects";
             Text = "Subjects";
             Load += Subjects_Load;
@@ -174,7 +162,6 @@
         private Label label2;
         private TextBox subject;
         private ComboBox courses_combobox;
-        private Button back_btn;
         private Button add_subject_btn;
         private Button delete_subject_btn;
         private Button search_subject_btn;

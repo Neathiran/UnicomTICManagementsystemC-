@@ -33,7 +33,6 @@
             course_name = new TextBox();
             add_course_name = new Button();
             update_courses_btn = new Button();
-            delete_course_btn = new Button();
             search_course_btn = new Button();
             update_coursename = new TextBox();
             back_btn = new Button();
@@ -73,7 +72,7 @@
             // add_course_name
             // 
             add_course_name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            add_course_name.Location = new Point(22, 248);
+            add_course_name.Location = new Point(101, 248);
             add_course_name.Name = "add_course_name";
             add_course_name.Size = new Size(87, 31);
             add_course_name.TabIndex = 3;
@@ -84,24 +83,13 @@
             // update_courses_btn
             // 
             update_courses_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            update_courses_btn.Location = new Point(146, 248);
+            update_courses_btn.Location = new Point(272, 248);
             update_courses_btn.Name = "update_courses_btn";
             update_courses_btn.Size = new Size(87, 31);
             update_courses_btn.TabIndex = 4;
             update_courses_btn.Text = "Update";
             update_courses_btn.UseVisualStyleBackColor = true;
             update_courses_btn.Click += update_courses_btn_Click;
-            // 
-            // delete_course_btn
-            // 
-            delete_course_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            delete_course_btn.Location = new Point(268, 248);
-            delete_course_btn.Name = "delete_course_btn";
-            delete_course_btn.Size = new Size(87, 31);
-            delete_course_btn.TabIndex = 5;
-            delete_course_btn.Text = "Delete";
-            delete_course_btn.UseVisualStyleBackColor = true;
-            delete_course_btn.Click += delete_course_btn_Click;
             // 
             // search_course_btn
             // 
@@ -143,14 +131,15 @@
             Controls.Add(back_btn);
             Controls.Add(update_coursename);
             Controls.Add(search_course_btn);
-            Controls.Add(delete_course_btn);
             Controls.Add(update_courses_btn);
             Controls.Add(add_course_name);
             Controls.Add(course_name);
             Controls.Add(label1);
             Controls.Add(veiw_courses);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Add_and_veiwcourses";
             Text = "Add_and_veiwcourses";
+            Load += Add_and_veiwcourses_Load;
             ((System.ComponentModel.ISupportInitialize)veiw_courses).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -163,7 +152,6 @@
         private TextBox course_name;
         private Button add_course_name;
         private Button update_courses_btn;
-        private Button delete_course_btn;
         private Button search_course_btn;
         private TextBox update_coursename;
         private Button button1;

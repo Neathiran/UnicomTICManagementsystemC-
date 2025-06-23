@@ -20,12 +20,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UnicomTICManagementsystem.View
 {
-    public partial class Add_and_veiwstudents : Form
+    public partial class Add_and_viewstudents : Form
     {
         int check = 0;
         private StudentController studentController;
         int selectedstudentid = -1;
-        public Add_and_veiwstudents()
+        public Add_and_viewstudents()
         {
             InitializeComponent();
             studentController = new StudentController();
@@ -88,7 +88,6 @@ namespace UnicomTICManagementsystem.View
         {
             List<Students_mo> students = studentController.GetStudents();
             student_veiw.DataSource = students;
-            student_veiw.Columns["role"].Visible = false;
             student_veiw.Columns["password"].Visible = false;
             student_veiw.Columns["CoursesID"].Visible = false;
             student_veiw.Columns["Id"].Visible = false;
@@ -97,7 +96,8 @@ namespace UnicomTICManagementsystem.View
 
         private void Check_inputs()
         {
-            if (!string.IsNullOrWhiteSpace(name.Text) && !string.IsNullOrWhiteSpace(address.Text) && !string.IsNullOrWhiteSpace(age.Text) && !string.IsNullOrWhiteSpace(NIC_number.Text) && !string.IsNullOrWhiteSpace(course.Text) && !string.IsNullOrWhiteSpace(gender_combobox.Text))
+            if (!string.IsNullOrWhiteSpace(name.Text) && !string.IsNullOrWhiteSpace(address.Text) && !string.IsNullOrWhiteSpace(age.Text) &&
+                !string.IsNullOrWhiteSpace(NIC_number.Text) && !string.IsNullOrWhiteSpace(course.Text) && !string.IsNullOrWhiteSpace(gender_combobox.Text))
             {
                 check = 2;
             }
@@ -119,8 +119,9 @@ namespace UnicomTICManagementsystem.View
             Check_inputs();
             if (check == 2)
             {
+                string formattedDate = DateTime.Now.ToString("yyyy-MM-dd");
                 UserController userController = new UserController();
-                string Id = userController.CreateUserID(age.Text, NIC_number.Text);
+                string Id = userController.CreateUserID(age.Text, NIC_number.Text, "Student");
                 Students_mo students_Mo = new Students_mo
                 {
                     Name = name.Text.Trim(),
@@ -131,13 +132,13 @@ namespace UnicomTICManagementsystem.View
                     coursesName = course.Text.Trim(),
                     CoursesID = Convert.ToInt32(course.SelectedValue),
                     UserId = Id,
-                    role = "Student"
+                    Date = formattedDate
                 };
 
                 int num = studentController.AddStudents(students_Mo);
                 if (num > 0)
                 {
-                    userController.AddUsers(students_Mo);
+                    userController.AddUsers(students_Mo.UserId,"Student");
                     MessageBox.Show("UserId :" + students_Mo.UserId);
                     MessageBox.Show("PassWord 4321");
                     check = 0;

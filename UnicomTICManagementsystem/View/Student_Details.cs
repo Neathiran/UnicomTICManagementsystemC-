@@ -17,53 +17,84 @@ namespace UnicomTICManagementsystem.View
         {
             InitializeComponent();
         }
+        public void LoadForm(object formObj)
+        {
+            if (this.MainPanel.Controls.Count > 0)
+            {
+                this.MainPanel.Controls.RemoveAt(0);
+            }
+
+            Form form = formObj as Form;
+            form.TopLevel = false;
+            form.Dock = DockStyle.Fill;
+            this.MainPanel.Controls.Add(form);
+            this.MainPanel.Tag = form;
+            form.Show();
+        }
 
         private void course_btn_Click(object sender, EventArgs e)
         {
-            Add_and_veiwcourses add_And_Veiwcourses = new Add_and_veiwcourses();
-            add_And_Veiwcourses.Show();
-            this.Hide();
+            LoadForm(new Add_and_veiwcourses());
+
         }
 
         private void back_btn_Click(object sender, EventArgs e)
         {
-            Menu menu = new Menu();
-            menu.Show();
-            this.Hide();
+            //LoadForm(new Add_and_veiwcourses());
+            //Menu menu = new Menu();
+            //menu.Show();
+            //this.Hide();
         }
 
         private void student_detail_btn_Click(object sender, EventArgs e)
         {
-            Add_and_veiwstudents student = new Add_and_veiwstudents();
-            student.Show();
-            this.Hide();
+            LoadForm(new Add_and_viewstudents());
+
         }
 
         private void subjects_btn_Click(object sender, EventArgs e)
         {
-            Subjects subjects = new Subjects();
-            subjects.Show();
-            this.Hide();
+            LoadForm(new Subjects());
+
         }
 
         private void rooms_btn_Click(object sender, EventArgs e)
         {
-            Rooms rooms = new Rooms();
-            rooms.Show();
-            this.Hide();
+            LoadForm(new Rooms());
+
         }
 
         private void exams_btn_Click(object sender, EventArgs e)
         {
-            Exams exams = new Exams();
-            exams.Show();
-            this.Hide();
+            LoadForm(new Exams());
+
         }
 
         private void timetable_btn_Click(object sender, EventArgs e)
         {
-            TimeTable timeTable = new TimeTable();
-            timeTable.Show();
+            LoadForm(new TimeTable());
+
+        }
+
+        private void MainPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mark_btn_Click(object sender, EventArgs e)
+        {
+            LoadForm(new Marks());
+        }
+
+        private void SidePanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void back_btn_Click_1(object sender, EventArgs e)
+        {
+            Menu menu = new Menu();
+            menu.Show();
             this.Hide();
         }
     }

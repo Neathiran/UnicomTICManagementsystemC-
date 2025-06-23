@@ -35,6 +35,7 @@ namespace UnicomTICManagementsystem.Controllers
                     students_.UserId = readers.GetString(6);
                     students_.NIC_Number = readers.GetString(7);
                     students_.CoursesID = readers.GetInt32(8);
+                    students_.Date = readers.GetString(9);
                     students_Mos.Add(students_);
                     i++;
 
@@ -62,7 +63,7 @@ namespace UnicomTICManagementsystem.Controllers
                     {
                         reader.Close();
 
-                        string AddsstudentsQuery = "INSERT INTO Students (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID) VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid)";
+                        string AddsstudentsQuery = "INSERT INTO Students (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID,Date) VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid,@date)";
                         SQLiteCommand SQLite = new SQLiteCommand(AddsstudentsQuery, Dbconn);
 
                         SQLite.Parameters.AddWithValue("@name", students_mo.Name);
@@ -73,6 +74,7 @@ namespace UnicomTICManagementsystem.Controllers
                         SQLite.Parameters.AddWithValue("@userid", students_mo.UserId);
                         SQLite.Parameters.AddWithValue("@nicnumber", students_mo.NIC_Number);
                         SQLite.Parameters.AddWithValue("@coursesid", students_mo.CoursesID);
+                        SQLite.Parameters.AddWithValue("@date", students_mo.Date);
                         SQLite.ExecuteNonQuery();
                         return 1;
 
@@ -134,7 +136,28 @@ namespace UnicomTICManagementsystem.Controllers
                 }
             }
 
-        
+        public void UpdateCourse(Courses_mo courses_mo)
+        {
+            using (var Dbconn = Dbconfing.GetConnection())
+            {
+
+                using (var cmd = Dbconn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                UPDATE Students SET
+                    CoursesName = @coursesName
+                WHERE CoursesID = @coursesID";
+
+                    cmd.Parameters.AddWithValue("@coursesName", courses_mo.Name);
+                    cmd.Parameters.AddWithValue("@coursesID", courses_mo.Id);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
 
 

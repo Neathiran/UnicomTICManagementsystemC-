@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,36 +85,100 @@ namespace UnicomTICManagementsystem.View
         }
 
 
-        private string check_time_()
+        //private string check_time_()
+        //{
+        //    if (DateTime.TryParseExact(time_from.Text, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeFrom) &&
+        //         DateTime.TryParseExact(time_to.Text, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeTo))
+        //    {
+
+
+
+        //        //DateTime timeFrom = DateTime.Parse(time_from.Text);
+        //        //DateTime timeTo = DateTime.Parse(time_to.Text);
+        //        if (timeFrom < timeTo)
+        //        {
+        //            List<Date_Time_mo> date_Time_mo = examController.GetTime(date.Text);
+
+
+        //            foreach (var slot in date_Time_mo)
+        //            {
+        //                string[] times = slot.Time.Split('-');
+
+        //                DateTime existingStart = DateTime.Parse(times[0].Trim());
+        //                DateTime existingEnd = DateTime.Parse(times[1].Trim());
+
+
+
+        //                if (timeFrom < existingEnd && existingStart < timeTo)
+        //                {
+        //                    if (check != 3)
+        //                    {
+        //                        MessageBox.Show("Time conflict detected with another exam.");
+        //                        return null;
+        //                    }
+        //                }
+        //            }
+        //            string Time_01 = timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
+        //            return Time_01;
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Starting time < Endingtime");
+        //            return null;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Invalid time format.eg 10:00 AM");
+        //        return null;
+        //    }
+        //}
+        private string CheckTime()
         {
-            List<Date_Time_mo> date_Time_mo = examController.GetTime(date.Text);
-
-
-            DateTime timeFrom = DateTime.Parse(time_from.Text);
-            DateTime timeTo = DateTime.Parse(time_to.Text);
-
-            foreach (var slot in date_Time_mo)
+            if (DateTime.TryParseExact(time_from.Text, "hh:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeFrom) &&
+                DateTime.TryParseExact(time_to.Text, "hh:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime timeTo))
             {
-                string[] times = slot.Time.Split('-');
-                if (times.Length != 2) continue;
-
-                DateTime existingStart = DateTime.Parse(times[0].Trim());
-                DateTime existingEnd = DateTime.Parse(times[1].Trim());
-
-
-
-                if (timeFrom < existingEnd && existingStart < timeTo)
+                if (timeFrom < timeTo)
                 {
-                    if (check != 3)
+                    List<Date_Time_mo> examSlots = examController.GetTime(date.Text);
+
+                    foreach (var slot in examSlots)
                     {
-                        MessageBox.Show("Time conflict detected with another exam.");
-                        return null;
+                        string[] times = slot.Time.Split('-');
+                        if (times.Length != 2)
+                            continue;
+
+                        DateTime existingStart = DateTime.Parse(times[0].Trim());
+                        DateTime existingEnd = DateTime.Parse(times[1].Trim());
+
+                        if (timeFrom < existingEnd && existingStart < timeTo)
+                        {
+                            if (check != 3)
+                            {
+                                MessageBox.Show("Time conflict detected with another exam.");
+
+                                return null;
+                            }
+                        }
+
                     }
+
+                    return timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
+                }
+                else
+                {
+                    MessageBox.Show("Start time must be earlier than end time.");
+                    return null;
                 }
             }
-            string Time_01 = timeFrom.ToString("hh:mm tt") + " - " + timeTo.ToString("hh:mm tt");
-            return Time_01;
+            else
+            {
+                MessageBox.Show("Invalid time format. Please use format like 07:00 AM.");
+                return null;
+            }
         }
+
+
 
 
 
@@ -123,7 +188,7 @@ namespace UnicomTICManagementsystem.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string Time = check_time_();
+            string Time = CheckTime();
             if (Time != null)
             {
                 Exams_mo exams_Mo = new Exams_mo
@@ -231,7 +296,7 @@ namespace UnicomTICManagementsystem.View
 
             if (selectedcourseId > 0)
             {
-                string Time = check_time_();
+                string Time = CheckTime();
                 Exams_mo exams_Mo = new Exams_mo
                 {
                     ExamID = selectedcourseId,
@@ -265,6 +330,11 @@ namespace UnicomTICManagementsystem.View
 
             Addview();
             back_from__search.Visible = false;
+        }
+
+        private void subject_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

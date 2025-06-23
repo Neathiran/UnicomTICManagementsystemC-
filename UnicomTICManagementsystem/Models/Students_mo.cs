@@ -18,8 +18,8 @@ namespace UnicomTICManagementsystem.Models
         public int CoursesID { get; set; }
         public string Address { get; set; }
         public string coursesName { get; set; }
-        public string role { get; set; }
         public string password { get; set; }
+        public string Date {  get; set; }
 
 
 

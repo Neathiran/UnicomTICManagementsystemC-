@@ -110,18 +110,22 @@ namespace UnicomTICManagementsystem.View
             }
             else
             {
-                //if (room_name.Text.Trim() != "")
-                //{
-                   // string timeString = time.Value.ToString("HH:mm:ss");
+                if (room_name.Text.Trim() != "")
+                {
                     Rooms_mo rooms_ = new Rooms_mo();
-                    rooms_.RoomName = room_name.Text;
+                    rooms_.RoomName = room_name.Text.Trim();
                     rooms_.RoomType = roomtype.Text;
                     rooms.AddRooms(rooms_);
                     addview();
                     room_name.Clear();
 
 
-               // }
+               }
+                else
+                {
+                    MessageBox.Show("Invalid Room Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
             }
 
         }

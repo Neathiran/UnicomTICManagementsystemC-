@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace UnicomTICManagementsystem.Models
 {
-    public class Users_mo
+    internal class Marks_mo
     {
         public int No { get; set; }
+        public int ID { get; set; }
+        public int Mark { get; set; }
         public string UserID { get; set; }
-
-        public string Password { get; set; }
-
-        public string Role { get; set; }
+        public int ExamsID { get; set; }
+        public string ExamName { get; set; }
     }
-
 }

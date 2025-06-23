@@ -1,6 +1,6 @@
 ﻿namespace UnicomTICManagementsystem.View
 {
-    partial class Add_and_veiwstudents
+    partial class Add_and_viewstudents
     {
         /// <summary>
         /// Required designer variable.
@@ -36,7 +36,6 @@
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
-            back_btn = new Button();
             label5 = new Label();
             name = new TextBox();
             course = new ComboBox();
@@ -134,17 +133,6 @@
             label4.Size = new Size(64, 21);
             label4.TabIndex = 8;
             label4.Text = "Gender";
-            // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(4, 12);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(51, 32);
-            back_btn.TabIndex = 9;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click;
             // 
             // label5
             // 
@@ -248,11 +236,11 @@
             ut.TabIndex = 21;
             ut.Text = "no";
             // 
-            // Add_and_veiwstudents
+            // Add_and_viewstudents
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(799, 450);
             Controls.Add(ut);
             Controls.Add(search_btn);
             Controls.Add(ut_number);
@@ -264,7 +252,6 @@
             Controls.Add(course);
             Controls.Add(name);
             Controls.Add(label5);
-            Controls.Add(back_btn);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -273,7 +260,8 @@
             Controls.Add(update_student_btn);
             Controls.Add(delete_student_btn);
             Controls.Add(add_student_btn);
-            Name = "Add_and_veiwstudents";
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "Add_and_viewstudents";
             Text = "Addstudents";
             Load += Add_and_veiwstudents_Load;
             ((System.ComponentModel.ISupportInitialize)student_veiw).EndInit();
@@ -289,7 +277,6 @@
         private Label label2;
         private Label label3;
         private Label label4;
-        private Button back_btn;
         private Label label5;
         private TextBox name;
         private ComboBox course;

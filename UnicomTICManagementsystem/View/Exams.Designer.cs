@@ -31,7 +31,6 @@
             add_btn = new Button();
             update_btn = new Button();
             delete_btn = new Button();
-            back_btn = new Button();
             exams_view = new DataGridView();
             label1 = new Label();
             label2 = new Label();
@@ -80,17 +79,6 @@
             delete_btn.Text = "Delete";
             delete_btn.UseVisualStyleBackColor = true;
             delete_btn.Click += delete_btn_Click;
-            // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(12, 12);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(50, 29);
-            back_btn.TabIndex = 3;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click;
             // 
             // exams_view
             // 
@@ -150,6 +138,7 @@
             subject_combobox.Name = "subject_combobox";
             subject_combobox.Size = new Size(135, 23);
             subject_combobox.TabIndex = 10;
+            subject_combobox.SelectedIndexChanged += subject_combobox_SelectedIndexChanged;
             // 
             // date
             // 
@@ -184,7 +173,7 @@
             time_from.Name = "time_from";
             time_from.Size = new Size(79, 25);
             time_from.TabIndex = 19;
-            time_from.Text = "9:00 AM";
+            time_from.Text = "09:00 AM";
             time_from.TextChanged += time_from_TextChanged;
             // 
             // time_to
@@ -238,10 +227,10 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(exams_view);
-            Controls.Add(back_btn);
             Controls.Add(delete_btn);
             Controls.Add(update_btn);
             Controls.Add(add_btn);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Exams";
             Text = "Exams";
             ((System.ComponentModel.ISupportInitialize)exams_view).EndInit();
@@ -254,7 +243,6 @@
         private Button add_btn;
         private Button update_btn;
         private Button delete_btn;
-        private Button back_btn;
         private DataGridView exams_view;
         private Label label1;
         private Label label2;
