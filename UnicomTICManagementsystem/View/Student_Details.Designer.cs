@@ -35,9 +35,9 @@
             exams_btn = new Button();
             timetable_btn = new Button();
             SidePanel = new Panel();
+            back_btn = new Button();
             mark_btn = new Button();
             MainPanel = new Panel();
-            back_btn = new Button();
             SidePanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,7 +55,7 @@
             // student_detail_btn
             // 
             student_detail_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            student_detail_btn.Location = new Point(16, 113);
+            student_detail_btn.Location = new Point(22, 109);
             student_detail_btn.Name = "student_detail_btn";
             student_detail_btn.Size = new Size(119, 29);
             student_detail_btn.TabIndex = 2;
@@ -66,7 +66,7 @@
             // subjects_btn
             // 
             subjects_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            subjects_btn.Location = new Point(12, 170);
+            subjects_btn.Location = new Point(22, 336);
             subjects_btn.Name = "subjects_btn";
             subjects_btn.Size = new Size(123, 29);
             subjects_btn.TabIndex = 3;
@@ -77,7 +77,7 @@
             // rooms_btn
             // 
             rooms_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            rooms_btn.Location = new Point(16, 233);
+            rooms_btn.Location = new Point(22, 407);
             rooms_btn.Name = "rooms_btn";
             rooms_btn.Size = new Size(119, 31);
             rooms_btn.TabIndex = 4;
@@ -88,7 +88,7 @@
             // exams_btn
             // 
             exams_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            exams_btn.Location = new Point(14, 301);
+            exams_btn.Location = new Point(20, 224);
             exams_btn.Name = "exams_btn";
             exams_btn.Size = new Size(125, 25);
             exams_btn.TabIndex = 5;
@@ -99,7 +99,7 @@
             // timetable_btn
             // 
             timetable_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            timetable_btn.Location = new Point(14, 355);
+            timetable_btn.Location = new Point(20, 174);
             timetable_btn.Name = "timetable_btn";
             timetable_btn.Size = new Size(125, 28);
             timetable_btn.TabIndex = 7;
@@ -125,10 +125,21 @@
             SidePanel.TabIndex = 8;
             SidePanel.Paint += SidePanel_Paint;
             // 
+            // back_btn
+            // 
+            back_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            back_btn.Location = new Point(3, 3);
+            back_btn.Name = "back_btn";
+            back_btn.Size = new Size(59, 29);
+            back_btn.TabIndex = 9;
+            back_btn.Text = "⬅️";
+            back_btn.UseVisualStyleBackColor = true;
+            back_btn.Click += back_btn_Click_1;
+            // 
             // mark_btn
             // 
             mark_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            mark_btn.Location = new Point(16, 406);
+            mark_btn.Location = new Point(22, 277);
             mark_btn.Name = "mark_btn";
             mark_btn.Size = new Size(123, 32);
             mark_btn.TabIndex = 8;
@@ -145,17 +156,6 @@
             MainPanel.TabIndex = 9;
             MainPanel.Paint += MainPanel_Paint;
             // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(3, 3);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(59, 29);
-            back_btn.TabIndex = 9;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click_1;
-            // 
             // Student_Details
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -165,6 +165,7 @@
             Controls.Add(SidePanel);
             Name = "Student_Details";
             Text = "Student_Details";
+            Load += Student_Details_Load;
             SidePanel.ResumeLayout(false);
             ResumeLayout(false);
         }

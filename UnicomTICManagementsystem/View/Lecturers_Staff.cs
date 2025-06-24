@@ -38,7 +38,7 @@ namespace UnicomTICManagementsystem.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LoadForm(new Add_and_ViewLecturers());
+            LoadForm(new Add_and_ViewLecturers_and_staff());
         }
 
         private void button1_Click_1(object sender, EventArgs e)

@@ -273,7 +273,12 @@ namespace UnicomTICManagementsystem.View
 
         private void TimeTable_Load(object sender, EventArgs e)
         {
-
+            if(Role.role != "Admin")
+            {
+                add_btn.Visible = false;
+                update_btn.Visible = false;
+                delete_btn.Visible = false;
+            }
         }
 
         private void course_combobox_SelectedIndexChanged(object sender, EventArgs e)

@@ -157,6 +157,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Rooms";
             Text = "Rooms";
+            Load += Rooms_Load;
             ((System.ComponentModel.ISupportInitialize)room_veiw).EndInit();
             ResumeLayout(false);
             PerformLayout();

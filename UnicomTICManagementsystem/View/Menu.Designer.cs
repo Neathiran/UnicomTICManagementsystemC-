@@ -30,7 +30,6 @@
         {
             students_btn = new Button();
             Lecturer_btn = new Button();
-            staff_btn = new Button();
             admin_btn = new Button();
             SuspendLayout();
             // 
@@ -48,24 +47,13 @@
             // Lecturer_btn
             // 
             Lecturer_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Lecturer_btn.Location = new Point(289, 164);
+            Lecturer_btn.Location = new Point(289, 212);
             Lecturer_btn.Name = "Lecturer_btn";
             Lecturer_btn.Size = new Size(162, 29);
             Lecturer_btn.TabIndex = 2;
-            Lecturer_btn.Text = "Lecturers";
+            Lecturer_btn.Text = "Lecturers _Staff";
             Lecturer_btn.UseVisualStyleBackColor = true;
             Lecturer_btn.Click += Lecturer_btn_Click;
-            // 
-            // staff_btn
-            // 
-            staff_btn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            staff_btn.Location = new Point(289, 247);
-            staff_btn.Name = "staff_btn";
-            staff_btn.Size = new Size(162, 28);
-            staff_btn.TabIndex = 3;
-            staff_btn.Text = "Staffs";
-            staff_btn.UseVisualStyleBackColor = true;
-            staff_btn.Click += staff_btn_Click;
             // 
             // admin_btn
             // 
@@ -84,7 +72,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(751, 450);
             Controls.Add(admin_btn);
-            Controls.Add(staff_btn);
             Controls.Add(Lecturer_btn);
             Controls.Add(students_btn);
             Name = "Menu";
@@ -97,7 +84,6 @@
 
         private Button students_btn;
         private Button Lecturer_btn;
-        private Button staff_btn;
         private Button admin_btn;
     }
 }

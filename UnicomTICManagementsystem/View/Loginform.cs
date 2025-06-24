@@ -35,6 +35,7 @@ namespace UnicomTICManagementsystem
         private void login_Click(object sender, EventArgs e)
         {
 
+
             
             Id_Password id_Password = new Id_Password();
             id_Password.Id = userid.Text.Trim();
@@ -56,18 +57,36 @@ namespace UnicomTICManagementsystem
             {
                 if (role == "Student")
                 {
+                    
                     MessageBox.Show("Student Login");
+                    Role.role = "Student";
+                    Student_Details student_Details = new Student_Details();
+                    student_Details.Show();
+                    this.Hide();
                 }
-                else if (role == "Lecturer")  
+                else if (role == "Admin")  
                 {
+                    Role.role = "Admin";
                     Menu menu = new Menu();
                     menu.Show();
                     this.Hide();
                 }
                 else if (role == "Staff")
                 {
-                  
+                    Role.role = "Staff";
+
                     MessageBox.Show("Staff Login");
+                    Student_Details student_Details = new Student_Details();
+                    student_Details.Show();
+                    this.Hide();
+                }
+                else if (role == "Lecturers")
+                {
+                    Role.role = "Lecturers";
+                    Student_Details student_Details = new Student_Details();
+                    student_Details.Show();
+                    this.Hide();
+
                 }
             }
             else

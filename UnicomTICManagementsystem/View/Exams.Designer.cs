@@ -87,6 +87,7 @@
             exams_view.Name = "exams_view";
             exams_view.Size = new Size(450, 289);
             exams_view.TabIndex = 4;
+            exams_view.CellContentClick += exams_view_CellContentClick;
             exams_view.SelectionChanged += View_SelectionChanged;
             // 
             // label1
@@ -233,6 +234,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Exams";
             Text = "Exams";
+            Load += Exams_Load;
             ((System.ComponentModel.ISupportInitialize)exams_view).EndInit();
             ResumeLayout(false);
             PerformLayout();

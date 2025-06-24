@@ -106,6 +106,7 @@
             mark_view.Size = new Size(414, 287);
             mark_view.TabIndex = 6;
             mark_view.CellContentClick += mark_view_CellContentClick;
+            mark_view.SelectionChanged += markview_selection_change;
             // 
             // add_btn
             // 
@@ -127,6 +128,7 @@
             update_btn.TabIndex = 8;
             update_btn.Text = "Update";
             update_btn.UseVisualStyleBackColor = true;
+            update_btn.Click += update_btn_Click;
             // 
             // delet_btn
             // 
@@ -137,6 +139,7 @@
             delet_btn.TabIndex = 9;
             delet_btn.Text = "Delete";
             delet_btn.UseVisualStyleBackColor = true;
+            delet_btn.Click += delet_btn_Click;
             // 
             // Marks
             // 
@@ -156,6 +159,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Marks";
             Text = "Marks";
+            Load += Marks_Load;
             ((System.ComponentModel.ISupportInitialize)mark_view).EndInit();
             ResumeLayout(false);
             PerformLayout();

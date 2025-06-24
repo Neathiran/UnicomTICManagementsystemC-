@@ -35,7 +35,6 @@
             update_courses_btn = new Button();
             search_course_btn = new Button();
             update_coursename = new TextBox();
-            back_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)veiw_courses).BeginInit();
             SuspendLayout();
             // 
@@ -112,23 +111,11 @@
             update_coursename.TabIndex = 8;
             update_coursename.TextChanged += update_coursename_TextChanged;
             // 
-            // back_btn
-            // 
-            back_btn.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            back_btn.Location = new Point(22, 28);
-            back_btn.Name = "back_btn";
-            back_btn.Size = new Size(44, 30);
-            back_btn.TabIndex = 9;
-            back_btn.Text = "⬅️";
-            back_btn.UseVisualStyleBackColor = true;
-            back_btn.Click += back_btn_Click;
-            // 
             // Add_and_veiwcourses
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(back_btn);
             Controls.Add(update_coursename);
             Controls.Add(search_course_btn);
             Controls.Add(update_courses_btn);
@@ -155,6 +142,5 @@
         private Button search_course_btn;
         private TextBox update_coursename;
         private Button button1;
-        private Button back_btn;
     }
 }

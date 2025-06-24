@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnicomTICManagementsystem.Forms;
+using UnicomTICManagementsystem.Models;
 
 namespace UnicomTICManagementsystem.View
 {
@@ -96,6 +97,22 @@ namespace UnicomTICManagementsystem.View
             Menu menu = new Menu();
             menu.Show();
             this.Hide();
+        }
+
+        private void Student_Details_Load(object sender, EventArgs e)
+        {
+            if ( Role.role == "Student") 
+            {
+                back_btn.Visible = false;
+                student_detail_btn.Visible = false;
+                course_btn.Visible = false;
+                rooms_btn.Visible = false;
+
+            }
+            else if( Role.role != "Admin")
+            {
+                back_btn.Visible = false;
+            }
         }
     }
 }

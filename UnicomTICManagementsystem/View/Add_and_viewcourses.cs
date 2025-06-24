@@ -242,7 +242,12 @@ namespace UnicomTICManagementsystem.View
 
         private void Add_and_veiwcourses_Load(object sender, EventArgs e)
         {
+            if (Role.role != "Admin")
+            {
+                add_course_name.Visible = false;
+                update_courses_btn.Visible = false;
 
+            }
         }
     }
 }

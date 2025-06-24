@@ -188,7 +188,12 @@ namespace UnicomTICManagementsystem.View
 
         private void Subjects_Load(object sender, EventArgs e)
         {
+            if (Role.role != "Admin")
+            {
+                add_subject_btn.Visible = false;
+                delete_subject_btn.Visible=false;
 
+            }
         }
     }
 }

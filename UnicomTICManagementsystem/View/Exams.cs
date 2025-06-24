@@ -336,5 +336,20 @@ namespace UnicomTICManagementsystem.View
         {
 
         }
+
+        private void Exams_Load(object sender, EventArgs e)
+        {
+            if (Role.role == "Student")
+            {
+                add_btn.Visible = false;
+                update_btn.Visible = false;
+                delete_btn.Visible = false;
+            }
+        }
+
+        private void exams_view_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

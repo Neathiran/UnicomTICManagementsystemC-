@@ -93,6 +93,49 @@ namespace UnicomTICManagementsystem.Controllers
                 }
             }
         }
+        public void DeleteLecturer(string userid)
+        {
+            using (var conn = Dbconfing.GetConnection())
+            {
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM Lecturers WHERE UserID = @userid";
+                cmd.Parameters.AddWithValue("@userid", userid);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void UpdateLecturer(Lecturers_mo lecturer)
+        {
+            using (var Dbconn = Dbconfing.GetConnection())
+            {
+                using (var cmd = Dbconn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+            UPDATE Lecturers SET
+                LecturerName = @lecturerName,
+                CoursesID = @coursesID,
+                Gender = @gender,
+                CourseName = @courseName,
+                UserID = @userID,
+                NICNumber = @nicNumber,
+                PhoneNumber = @phoneNumber,
+                Date = @date
+            WHERE ID = @id";
+
+                    cmd.Parameters.AddWithValue("@lecturerName", lecturer.LecturerName);
+                    cmd.Parameters.AddWithValue("@coursesID", lecturer.CoursesID);
+                    cmd.Parameters.AddWithValue("@gender", lecturer.Gender);
+                    cmd.Parameters.AddWithValue("@courseName", lecturer.CourseName);
+                    cmd.Parameters.AddWithValue("@userID", lecturer.UserID);
+                    cmd.Parameters.AddWithValue("@nicNumber", lecturer.NICNumber);
+                    cmd.Parameters.AddWithValue("@phoneNumber", lecturer.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@date", lecturer.Date);
+                    cmd.Parameters.AddWithValue("@id", lecturer.ID);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
     }

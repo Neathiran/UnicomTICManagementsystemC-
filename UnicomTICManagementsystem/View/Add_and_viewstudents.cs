@@ -278,7 +278,12 @@ namespace UnicomTICManagementsystem.View
 
         private void Add_and_veiwstudents_Load(object sender, EventArgs e)
         {
-
+            if(Role.role != "Admin")
+            {
+                add_student_btn.Visible = false;
+                update_student_btn.Visible=false;
+                delete_student_btn.Visible=false;
+            }
         }
 
         private void ut_number_TextChanged_1(object sender, EventArgs e)

@@ -76,7 +76,7 @@ namespace UnicomTICManagementsystem.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(add > 0)
+            if (add > 0)
             {
                 Hide_01(true);
                 Hide_02(false);
@@ -88,7 +88,7 @@ namespace UnicomTICManagementsystem.View
                 student_Details.Show();
                 this.Hide();
             }
-           
+
         }
 
         private void roomtype_combobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -101,12 +101,12 @@ namespace UnicomTICManagementsystem.View
             if (add > 0)
             {
                 rooms.AddRoomtype(roomtype.Text);
-                
+
                 addview();
                 addcombobox();
                 Hide_01(true);
                 Hide_02(false);
-                add =0;
+                add = 0;
             }
             else
             {
@@ -120,7 +120,7 @@ namespace UnicomTICManagementsystem.View
                     room_name.Clear();
 
 
-               }
+                }
                 else
                 {
                     MessageBox.Show("Invalid Room Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -147,6 +147,15 @@ namespace UnicomTICManagementsystem.View
         private void roomtype_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Rooms_Load(object sender, EventArgs e)
+        {
+            if (Role.role != "Admin")
+            {
+               Add_btn.Visible = false;
+               delete_btn.Visible = false;   
+            }
         }
     }
 }
