@@ -56,7 +56,7 @@ namespace UnicomTICManagementsystem.View
             string ut_number_ = ut_number.Text;
             foreach (var students_ in students)
             {
-                if (students_.Name == ut_number_)
+                if (students_.UserId == ut_number_)
                 {
                     List<Students_mo> search = new List<Students_mo>();
                     search.Add(students_);

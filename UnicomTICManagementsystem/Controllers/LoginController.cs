@@ -24,24 +24,24 @@ namespace UnicomTICManagementsystem.Controllers
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())  // Check if there is a record for the provided UserID
+                        if (reader.Read())  
                         {
-                            string storedPassword = reader.GetString(0);  // Password from DB
-                            string role = reader.GetString(1);  // Role from DB
+                            string storedPassword = reader.GetString(0); 
+                            string role = reader.GetString(1);  
 
-                            if (storedPassword == id_Password.Password)  // Compare password
+                            if (storedPassword == id_Password.Password)  
                             {
-                                return role;  // Return the Role if password matches
+                                return role;  
                             }
                             else
                             {
-                                // Password does not match
+                                
                                 return null;
                             }
                         }
                         else
                         {
-                            // User not found
+                           
                             return null;
                         }
                     }
@@ -49,7 +49,7 @@ namespace UnicomTICManagementsystem.Controllers
             }
             catch (Exception ex)
             {
-                // Handle potential exceptions (e.g., DB connection issues)
+                
                 Console.WriteLine("Error: " + ex.Message);
                 return null;
             }

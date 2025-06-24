@@ -155,6 +155,7 @@ namespace UnicomTICManagementsystem.View
                         MessageBox.Show("PassWord 4321");
                         check = 0;
                         Clear();
+                        Add_View();
                     }
                     else
                     {
@@ -182,6 +183,7 @@ namespace UnicomTICManagementsystem.View
                         MessageBox.Show("PassWord 4321");
                         check = 0;
                         Clear();
+                        Add_View();
                     }
                     else
                     {

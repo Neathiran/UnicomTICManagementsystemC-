@@ -63,7 +63,8 @@ namespace UnicomTICManagementsystem.Controllers
                     {
                         reader.Close();
 
-                        string AddsstudentsQuery = "INSERT INTO Students (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID,Date) VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid,@date)";
+                        string AddsstudentsQuery = "INSERT INTO Students (Name,Age,Gender,Address,CoursesName,UserID,NICNumber,CoursesID,Date) " +
+                            "VALUES (@name,@age,@gender,@address,@coursesname,@userid,@nicnumber,@coursesid,@date)";
                         SQLiteCommand SQLite = new SQLiteCommand(AddsstudentsQuery, Dbconn);
 
                         SQLite.Parameters.AddWithValue("@name", students_mo.Name);
